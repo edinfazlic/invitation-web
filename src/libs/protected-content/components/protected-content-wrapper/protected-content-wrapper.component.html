@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-5">
+        <li class="nav-item" *ngFor="let menuItem of menuItems">
+          <a class="nav-link" [ngClass]="{'active': isRouteActive(menuItem.route)}"
+             [routerLink]="menuItem.route">{{menuItem.title}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

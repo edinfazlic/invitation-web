@@ -1,0 +1,10 @@
+<div class="row">
+  <app-invitation-form
+    [templates]="templates$ |async"
+    [initialTemplate]="lastUsedTemplate$ | async"
+    (submitForm)="handleFormSubmit($event)"
+    (cancelForm)="cancelUpdate()"
+    (templateSelected)="setLastUsedTemplate($event)"
+    class="p-5 col-12 col-md-6 col-lg-4"
+  ></app-invitation-form>
+</div>

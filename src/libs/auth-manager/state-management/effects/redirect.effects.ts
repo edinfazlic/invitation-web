@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {switchMap} from 'rxjs/operators';
 import {ROUTE_NAMES, RouteNames} from '../../../core/routes';
-import {logoutFinished, navigateToSignInPage} from '../auth-manager.actions';
+import {logoutFinished, navigateToEntryPage, navigateToSignInPage} from '../auth-manager.actions';
 
 @Injectable()
 export class RedirectEffects {
@@ -12,11 +12,23 @@ export class RedirectEffects {
   openSignInPage$ = this.actions$.pipe(
     ofType(
       navigateToSignInPage,
-      logoutFinished
+      logoutFinished,
     ),
     switchMap(() => {
       this.router.navigate([
-        this.routeNames.Login.Base
+        this.routeNames.Login.Entry,
+      ]);
+
+      return [];
+    })
+  );
+
+  @Effect()
+  openEntryPage$ = this.actions$.pipe(
+    ofType(navigateToEntryPage),
+    switchMap(() => {
+      this.router.navigate([
+        this.routeNames.Entry,
       ]);
 
       return [];

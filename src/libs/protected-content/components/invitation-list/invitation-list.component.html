@@ -1,1 +1,36 @@
-<p>invitation-list works!</p>
+<button class="btn btn-primary rounded-pill text-uppercase m-2"
+        (click)="createInvitation()">Nova pozivnica
+</button>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">Zvanica</th>
+    <th scope="col">Odgovor</th>
+    <th scope="col">Broj gostiju</th>
+    <th scope="col">Broj djece</th>
+    <th scope="col">Zabilješka</th>
+    <th scope="col" class="table-info">Komentar zvanice</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let invitation of (invitations$ | async)"
+      class="cursor-pointer"
+      (click)="openInvitation(invitation.invitationId)">
+    <th scope="row">
+      <span class="fw-bolder">{{invitation.subject}}</span>
+    </th>
+    <th [ngClass]="{
+    'table-success': invitation.responseStatus === responseStatus.YES,
+    'table-warning': invitation.responseStatus === responseStatus.MAYBE,
+    'table-danger': invitation.responseStatus === responseStatus.NO,
+    'table-info': !invitation.responseStatus
+    }"
+    >{{getResponseStatus(invitation.responseStatus)}}</th>
+    <th>{{invitation.peopleAmount}}</th>
+    <th>{{invitation.childrenAmount}}</th>
+    <th>{{invitation.note}}</th>
+    <th class="table-info">{{invitation.comment}}</th>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,64 @@
+<form (submit)="handleFormSubmit()"
+      [formGroup]="form">
+  <div>
+    <label for="subject" class="form-label">Zvanica</label>
+    <input type="text" class="form-control"
+           id="subject" formControlName="subject">
+  </div>
+
+  <div class="dropdown pt-3">
+    <button class="btn btn-outline-secondary dropdown-toggle w-100"
+            type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown">
+      {{selectedTemplate.name}}
+    </button>
+    <ul class="dropdown-menu">
+      <li *ngFor="let template of templates"
+          [ngClass]="{'active' : template.id === selectedTemplate.id}">
+        <a class="dropdown-item"
+           (click)="selectTemplate(template)">{{template.name}}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="pt-3">
+    <label for="parameters" class="form-label">Tekst u predlošci</label>
+    <input type="text" class="form-control"
+           id="parameters" formControlName="parameters">
+  </div>
+
+  <div class="pt-3">
+    <label for="peopleAmount" class="form-label">Broj gostiju</label>
+    <input type="text" class="form-control"
+           id="peopleAmount" formControlName="peopleAmount">
+  </div>
+
+  <div class="pt-3">
+    <label for="childrenAmount" class="form-label">Broj djece</label>
+    <input type="text" class="form-control"
+           id="childrenAmount" formControlName="childrenAmount">
+  </div>
+
+  <div class="py-3">
+    <label for="note" class="form-label">Zabilješka</label>
+    <input type="text" class="form-control"
+           id="note" formControlName="note">
+  </div>
+
+  <div class="row justify-content-evenly">
+    <div class="col-5">
+      <button
+        class="btn btn-secondary rounded-pill text-uppercase w-100"
+        (click)="cancelUpdate()"
+        type="button">Odustani
+      </button>
+    </div>
+
+    <div class="col-5">
+      <button class="btn btn-primary rounded-pill text-uppercase w-100"
+              type="submit">Snimi
+      </button>
+    </div>
+  </div>
+</form>
+

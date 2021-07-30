@@ -1,0 +1,22 @@
+<button class="btn btn-primary rounded-pill text-uppercase m-2"
+        (click)="createInvitationTemplate()">Nova predloška
+</button>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">Naziv</th>
+    <th scope="col">Tekst</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let template of (templates$ | async)"
+      class="cursor-pointer"
+      (click)="openTemplate(template.id)">
+    <th scope="row">
+      <span class="fw-bolder">{{template.name}}</span>
+    </th>
+    <th>{{template.text}}</th>
+  </tr>
+  </tbody>
+</table>

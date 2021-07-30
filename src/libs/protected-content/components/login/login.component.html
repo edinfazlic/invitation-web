@@ -1,1 +1,24 @@
-<p>login works!</p>
+<form (submit)="handleFormSubmit()"
+      [formGroup]="form"
+      class="p-5 col-12 col-md-6 offset-md-5 col-lg-4 offset-lg-7"
+>
+  <div>
+    <label for="username" class="form-label">Korisničko ime</label>
+    <input type="text" class="form-control"
+           id="username" placeholder="Username" formControlName="email"
+           autofocus>
+  </div>
+
+  <div class="py-3">
+    <label for="password" class="form-label">Lozinka</label>
+    <input type="text" class="form-control"
+           id="password" placeholder="Password" formControlName="password">
+  </div>
+
+  <button
+    class="btn btn-primary rounded-pill text-uppercase w-100"
+    type="submit"
+  >
+    Log in
+  </button>
+</form>

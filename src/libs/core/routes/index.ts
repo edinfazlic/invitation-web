@@ -5,13 +5,33 @@ export const routeNames = {
   Base: '',
 
   Login: {
-    Entry: '',
-    Base: 'login',
+    Entry: 'login',
+    Base: '',
   },
 
   Public: {
     Entry: '',
     Invitation: 'i',
+  },
+
+  Invitation: {
+    Entry: 'invitation',
+    Base: '',
+    New: 'new',
+
+    Parameter: {
+      id: 'id',
+    }
+  },
+
+  InvitationTemplate: {
+    Entry: 'template',
+    Base: '',
+    New: 'new',
+
+    Parameter: {
+      id: 'id',
+    }
   }
 };
 

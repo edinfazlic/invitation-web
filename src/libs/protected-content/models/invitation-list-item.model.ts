@@ -1,7 +1,6 @@
-import {InvitationResponseStatus} from './invitation-response-status.model';
+import {InvitationResponseStatus} from './enums/invitation-response-status.model';
 
 export interface InvitationListItem {
-
   invitationId: number;
   subject: string;
   peopleAmount: number;

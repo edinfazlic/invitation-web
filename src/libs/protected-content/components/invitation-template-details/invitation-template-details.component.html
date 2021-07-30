@@ -1,0 +1,5 @@
+<app-invitation-template-form
+  [template]="template$ | async"
+  (submitForm)="handleFormSubmit($event)"
+  (cancelForm)="cancelUpdate()"
+></app-invitation-template-form>

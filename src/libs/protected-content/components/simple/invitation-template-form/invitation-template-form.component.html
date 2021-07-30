@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row">
+    <form (submit)="handleFormSubmit()"
+          [formGroup]="form"
+          class="p-5 col-12 col-md-6 col-lg-4"
+    >
+      <div>
+        <label for="name" class="form-label">Naziv predloške</label>
+        <input type="text" class="form-control"
+               id="name" formControlName="name">
+      </div>
+
+      <div class="py-3">
+        <label for="text" class="form-label">Tekst predloške (Staviti znak %% na mjesto gdje
+          trebaju doći parametri)</label>
+        <input type="text" class="form-control"
+               id="text" formControlName="text">
+      </div>
+
+      <div class="row justify-content-evenly">
+        <div class="col-5">
+          <button
+            class="btn btn-secondary rounded-pill text-uppercase w-100"
+            (click)="cancelUpdate()"
+            type="button">Odustani
+          </button>
+        </div>
+
+        <div class="col-5">
+          <button class="btn btn-primary rounded-pill text-uppercase w-100"
+                  type="submit">Snimi
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -17,7 +17,8 @@ export const initialState: AuthManagerState = {
 export const authMangerReducer = createReducer(
   initialState,
 
-  on(signInSuccessAction, (state: AuthManagerState, {accessToken}) => ({...state, accessToken}))
+  on(signInSuccessAction, (state: AuthManagerState, {accessToken}) => ({...state, accessToken})),
+  on(resetSignInData, (state: AuthManagerState) => ({...state, accessToken: null})),
 );
 
 export function createAuthMangerReducer(

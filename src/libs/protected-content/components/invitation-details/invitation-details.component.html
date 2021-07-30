@@ -1,0 +1,47 @@
+<div *ngIf="(invitation$ | async) as invitation" class="container-fluid">
+  <div class="row">
+    <app-invitation-form
+      [invitationDetails]="invitation$ | async"
+      [templates]="templates$ | async"
+      (submitForm)="handleFormSubmit($event)"
+      (cancelForm)="cancelUpdate()"
+      class="p-5 col-12 col-md-6 col-lg-4"
+    ></app-invitation-form>
+
+    <div class="p-5 col-12 col-md-6 col-lg-4">
+      <div>Odgovor:
+        <span [ngClass]="{
+      'bg-success': invitation.response?.status === responseStatus.YES,
+      'bg-warning': invitation.response?.status === responseStatus.MAYBE,
+      'bg-danger': invitation.response?.status === responseStatus.NO,
+      'bg-info': !invitation.response
+      }"
+              class="badge">{{getResponseStatus(invitation.response?.status)}}</span>
+      </div>
+      <div *ngIf="invitation.response?.comment">Komentar: {{invitation.response.comment}}</div>
+    </div>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Datum</th>
+        <th scope="col">Događaj</th>
+        <th scope="col">Promjene</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let log of invitation.logs">
+        <th scope="row">{{formatDate(log.date)}}</th>
+        <th>{{getChangeType(log.logType)}}</th>
+        <th>
+          <ul class="mb-0">
+            <li *ngFor="let change of log.changes">
+              {{getAttribute(change.attribute)}}: {{change.oldValue}} -> {{change.newValue}}
+            </li>
+          </ul>
+        </th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

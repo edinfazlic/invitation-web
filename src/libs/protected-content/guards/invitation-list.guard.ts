@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
 import {Actions, ofType} from '@ngrx/effects';
 import {Store} from '@ngrx/store';
 import {Observable, of} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
-import {InvitationListItem} from '../models/invitation-list-item.model';
 import {getInvitationsAction, getInvitationsSuccessAction} from '../state-management/actions/invitation-list.actions';
 
 @Injectable()
-export class InvitationListResolver implements Resolve<InvitationListItem[]> {
+export class InvitationListGuard implements CanActivate {
 
   constructor(
     private store: Store,
@@ -16,12 +15,12 @@ export class InvitationListResolver implements Resolve<InvitationListItem[]> {
   ) {
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<InvitationListItem[]> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
     this.store.dispatch(getInvitationsAction());
 
     return this.actions$.pipe(
       ofType(getInvitationsSuccessAction),
-      switchMap((value) => of(value.items))
+      switchMap(() => of(true))
     );
   }
 
