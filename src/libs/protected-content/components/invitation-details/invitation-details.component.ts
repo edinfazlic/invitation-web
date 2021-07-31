@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {ROUTE_NAMES, RouteNames} from '../../../core/routes';
 import {InvitationRequest} from '../../models/dtos/invitation-request.model';
 import {InvitationLogType} from '../../models/enums/invitation-log-type.model';
-import {InvitationResponseStatus} from '../../models/enums/invitation-response-status.model';
+import {InvitationResponseStatus} from '../../../core/models';
 import {InvitationDetails} from '../../models/invitation-details.model';
 import {InvitationTemplate} from '../../models/invitation-template.model';
 import {updateInvitationAction} from '../../state-management/actions/invitation-details.actions';

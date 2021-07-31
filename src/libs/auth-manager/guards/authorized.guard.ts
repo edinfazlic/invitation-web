@@ -1,9 +1,8 @@
-import {Inject, Injectable} from '@angular/core';
-import {CanActivate, CanActivateChild, Router, UrlTree} from '@angular/router';
+import {Injectable} from '@angular/core';
+import {CanActivate, CanActivateChild, UrlTree} from '@angular/router';
 import {select, Store} from '@ngrx/store';
 import {Observable, of} from 'rxjs';
 import {first, switchMap} from 'rxjs/operators';
-import {ROUTE_NAMES, RouteNames} from '../../core/routes';
 import {navigateToSignInPage} from '../state-management/actions/redirect.actions';
 import {selectAccessToken} from '../state-management/auth-manager.selectors';
 
@@ -12,8 +11,6 @@ export class AuthorizedGuard implements CanActivate, CanActivateChild {
 
   constructor(
     private store: Store,
-    private router: Router,
-    @Inject(ROUTE_NAMES) private routeNames: RouteNames
   ) {
   }
 

@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {provideRouteNames, routeNames} from '../core/routes';
-import {PublicInvitationComponent} from './components/invitation-list/public-invitation.component';
+import {PublicInvitationContainerComponent} from './components/public-invitation-container/public-invitation-container.component';
+import {PublicInvitationGuard} from './guards/public-invitation.guard';
 
 const routes: Routes = [
   {
@@ -10,8 +11,9 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: ':uuid',
-    component: PublicInvitationComponent,
+    path: `:${routeNames.Public.Parameter.uuid}`,
+    component: PublicInvitationContainerComponent,
+    canActivate: [PublicInvitationGuard],
   },
 ];
 

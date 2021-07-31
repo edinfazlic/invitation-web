@@ -1,4 +1,4 @@
-import {InvitationResponseStatus} from './enums/invitation-response-status.model';
+import {InvitationResponseStatus} from '../../core/models';
 
 export interface InvitationListItem {
   invitationId: number;

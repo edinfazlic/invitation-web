@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {InvitationListItem} from '../../models/invitation-list-item.model';
-import {InvitationResponseStatus} from '../../models/enums/invitation-response-status.model';
+import {InvitationResponseStatus} from '../../../core/models';
 import {navigateToInvitationCreate, navigateToInvitationDetails} from '../../state-management/actions/invitation-details.actions';
 import {getInvitationList} from '../../state-management/invitation.selectors';
 
@@ -38,5 +38,9 @@ export class InvitationListComponent {
 
   createInvitation() {
     this.store.dispatch(navigateToInvitationCreate());
+  }
+
+  generateLink(uuid: string): string {
+    return `http://localhost:4200/i/${uuid}`;
   }
 }

@@ -5,6 +5,10 @@
     <input type="text" class="form-control"
            id="subject" formControlName="subject">
   </div>
+  <div *ngIf="invitation.uuid">
+    <label class="form-label">Link</label>
+    <p>{{generateLink()}}</p>
+  </div>
 
   <div class="dropdown pt-3">
     <button class="btn btn-outline-secondary dropdown-toggle w-100"
@@ -19,12 +23,6 @@
            (click)="selectTemplate(template)">{{template.name}}</a>
       </li>
     </ul>
-  </div>
-
-  <div class="pt-3">
-    <label for="parameters" class="form-label">Tekst u predlošci</label>
-    <input type="text" class="form-control"
-           id="parameters" formControlName="parameters">
   </div>
 
   <div class="pt-3">

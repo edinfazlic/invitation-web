@@ -13,6 +13,7 @@ export class InvitationFormComponent implements OnInit {
 
   invitation: InvitationDetails = {
     id: null,
+    uuid: null,
     subject: '',
     parameters: '',
     peopleAmount: 0,
@@ -61,7 +62,6 @@ export class InvitationFormComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       subject: [this.invitation?.subject, [Validators.required]],
-      parameters: [this.invitation?.parameters, []],
       peopleAmount: [this.invitation?.peopleAmount || 0, [Validators.required]],
       childrenAmount: [this.invitation?.childrenAmount || 0, [Validators.required]],
       note: [this.invitation?.note, []],
@@ -72,7 +72,11 @@ export class InvitationFormComponent implements OnInit {
     this.form.markAllAsTouched();
 
     if (this.form.valid) {
-      this.submitForm.emit({...this.form.value, invitationTemplateId: this.selectedTemplate.id});
+      this.submitForm.emit({
+        ...this.form.value,
+        parameters: this.form.value.subject,
+        invitationTemplateId: this.selectedTemplate.id,
+      });
     }
   }
 
@@ -83,5 +87,9 @@ export class InvitationFormComponent implements OnInit {
   selectTemplate(template: InvitationTemplate): void {
     this.selectedTemplate = template;
     this.templateSelected.emit(template);
+  }
+
+  generateLink(): string {
+    return `http://localhost:4200/i/${this.invitation.uuid}`;
   }
 }

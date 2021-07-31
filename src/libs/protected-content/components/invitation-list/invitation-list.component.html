@@ -9,15 +9,16 @@
     <th scope="col">Odgovor</th>
     <th scope="col">Broj gostiju</th>
     <th scope="col">Broj djece</th>
+    <th scope="col">Link</th>
     <th scope="col">Zabilješka</th>
     <th scope="col" class="table-info">Komentar zvanice</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let invitation of (invitations$ | async)"
-      class="cursor-pointer"
-      (click)="openInvitation(invitation.invitationId)">
-    <th scope="row">
+  <tr *ngFor="let invitation of (invitations$ | async)">
+    <th scope="row"
+        class="cursor-pointer"
+        (click)="openInvitation(invitation.invitationId)">
       <span class="fw-bolder">{{invitation.subject}}</span>
     </th>
     <th [ngClass]="{
@@ -26,11 +27,20 @@
     'table-danger': invitation.responseStatus === responseStatus.NO,
     'table-info': !invitation.responseStatus
     }"
-    >{{getResponseStatus(invitation.responseStatus)}}</th>
-    <th>{{invitation.peopleAmount}}</th>
-    <th>{{invitation.childrenAmount}}</th>
-    <th>{{invitation.note}}</th>
-    <th class="table-info">{{invitation.comment}}</th>
+        class="cursor-pointer"
+        (click)="openInvitation(invitation.invitationId)">{{getResponseStatus(invitation.responseStatus)}}</th>
+    <th
+      class="cursor-pointer"
+      (click)="openInvitation(invitation.invitationId)">{{invitation.peopleAmount}}</th>
+    <th
+      class="cursor-pointer"
+      (click)="openInvitation(invitation.invitationId)">{{invitation.childrenAmount}}</th>
+    <th>{{generateLink(invitation.uuid)}}</th>
+    <th
+      class="cursor-pointer"
+      (click)="openInvitation(invitation.invitationId)">{{invitation.note}}</th>
+    <th class="table-info cursor-pointer"
+        (click)="openInvitation(invitation.invitationId)">{{invitation.comment}}</th>
   </tr>
   </tbody>
 </table>

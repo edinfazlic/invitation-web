@@ -12,6 +12,10 @@ export const routeNames = {
   Public: {
     Entry: '',
     Invitation: 'i',
+
+    Parameter: {
+      uuid: 'uuid',
+    }
   },
 
   Invitation: {

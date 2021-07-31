@@ -1,5 +1,5 @@
 import {InvitationLogItem} from './invitation-log-item.model';
-import {InvitationResponse} from './invitation-response.model';
+import {InvitationResponse} from '../../core/models';
 import {InvitationTemplate} from './invitation-template.model';
 
 export interface InvitationDetails {

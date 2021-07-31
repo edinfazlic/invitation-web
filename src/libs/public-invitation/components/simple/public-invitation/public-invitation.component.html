@@ -1,0 +1,45 @@
+<div class="row justify-content-center align-items-center vh-100">
+  <div class="col-md-8 col-lg-6 col-xxl-4 justify-content-center" style="background-color: aqua">
+    <div class="text-center">
+      {{getIntro()}}
+    </div>
+    <div class="text-center">
+      <h1>{{invitation.parameters}}</h1>
+    </div>
+    <div class="text-center">
+      {{getInvitationText()}}
+    </div>
+
+    <div class="text-center">
+      <textarea rows="3" placeholder="Komentar" maxlength="1000"
+                [(ngModel)]="comment"></textarea>
+    </div>
+
+    <div class="text-center">
+      {{getProvideAnswerHint()}}
+      <span *ngIf="invitation.response?.status === responseStatus.YES"
+            class="badge bg-success">ćete moći doći.</span>
+      <span *ngIf="invitation.response?.status === responseStatus.NO"
+            class="badge bg-danger">nećete moći doći.</span>
+    </div>
+
+    <div class="text-center">
+      <button [ngClass]="{'invisible': !provideAnswerLocked}"
+              class="btn btn-warning rounded-pill text-uppercase m-2"
+              (click)="changeAnswer()">Promijeni odgovor
+      </button>
+    </div>
+
+    <div [ngClass]="{'invisible': provideAnswerLocked}" class="text-center">
+      <button class="btn btn-danger rounded-pill text-uppercase m-2"
+              [ngClass]="{'invisible': invitation.response?.status === responseStatus.NO}"
+              (click)="declineInvitation()">{{getNoButtonTitle()}}
+      </button>
+
+      <button class="btn btn-success rounded-pill text-uppercase m-2"
+              [ngClass]="{'invisible': invitation.response?.status === responseStatus.YES}"
+              (click)="confirmInvitation()">{{getYesButtonTitle()}}
+      </button>
+    </div>
+  </div>
+</div>
