@@ -41,6 +41,6 @@ export class InvitationListComponent {
   }
 
   generateLink(uuid: string): string {
-    return `http://localhost:4200/i/${uuid}`;
+    return `https://pozivnica.netlify.app/i/${uuid}`;
   }
 }
