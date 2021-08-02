@@ -1,0 +1,58 @@
+.background-image {
+  z-index: -1;
+}
+
+.parallax-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  perspective: 8px;
+  perspective-origin: 0%;
+  display: flex;
+}
+
+.background-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateZ(0px);
+}
+
+.foreground-container {
+  margin-top: auto;
+  margin-bottom: 50px;
+
+  transform-origin: 0;
+  transform: translateZ(3px) scale(0.625);
+
+  color: blanchedalmond;
+}
+
+.foreground-content {
+  padding: 250px 4rem 0 4rem;
+}
+
+.invitee-title {
+  /*font-family: 'AcryleScript_PersonalUse';*/
+  font-family: 'Yugoslavia_script-demo-ffp';
+  font-size: 4rem;
+}
+
+.invitation-text {
+  font-family: 'Great-Vibes';
+  font-size: 2.5rem;
+  line-height: 3.5rem;
+}
+
+.signature-text {
+  font-family: 'AcryleScript_PersonalUse';
+  font-size: 5rem;
+}
+
+.comment-input {
+  resize: none;
+}

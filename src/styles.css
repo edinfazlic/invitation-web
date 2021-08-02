@@ -7,3 +7,33 @@ a {
 .cursor-pointer {
   cursor: pointer;
 }
+
+@font-face {
+  font-family: "Great-Vibes";
+  src: local("Great-Vibes"), url(./assets/fonts/GreatVibes-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Barchella_Drumal";
+  src: local("Barchella_Drumal"), url(./assets/fonts/Barchella_Drumal.otf) format("truetype");
+}
+
+@font-face {
+  font-family: "Demo_ConeriaScript";
+  src: local("Demo_ConeriaScript"), url(./assets/fonts/Demo_ConeriaScript.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "AcryleScript_PersonalUse";
+  src: local("AcryleScript_PersonalUse"), url(./assets/fonts/AcryleScript_PersonalUse.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Small_Town_Skyline";
+  src: local("Small_Town_Skyline"), url(./assets/fonts/Small_Town_Skyline.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Yugoslavia_script-demo-ffp";
+  src: local("Yugoslavia_script-demo-ffp"), url(./assets/fonts/Yugoslavia_script-demo-ffp.ttf) format("truetype");
+}

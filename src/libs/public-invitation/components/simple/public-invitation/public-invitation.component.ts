@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {InvitationResponse, InvitationResponseStatus} from '../../../../core/models';
 import {PublicInvitation} from '../../../models/public-invitation.model';
 
@@ -7,7 +7,7 @@ import {PublicInvitation} from '../../../models/public-invitation.model';
   templateUrl: './public-invitation.component.html',
   styleUrls: ['./public-invitation.component.css']
 })
-export class PublicInvitationComponent {
+export class PublicInvitationComponent implements OnInit {
 
   @Input()
   set invitationModel(invitation: PublicInvitation) {
@@ -32,8 +32,14 @@ export class PublicInvitationComponent {
     new EventEmitter<{ response: InvitationResponse, id: number }>();
 
   provideAnswerLocked: boolean;
+  isShowMap = false;
+  timerText: string;
 
   responseStatus = InvitationResponseStatus;
+
+  ngOnInit() {
+    this.setCountdownTimer();
+  }
 
   getIntro(): string {
     return this.invitation.templateText.split('%%')[0];
@@ -68,9 +74,13 @@ export class PublicInvitationComponent {
 
   getProvideAnswerHint(): string {
     if (!!this.invitation.response) {
-      return 'Javili ste nam da ';
+      if (this.invitation.response.status === InvitationResponseStatus.NO) {
+        return 'Javili ste nam da nažalost ';
+      } else {
+        return 'Drago nam je što ste javili da ';
+      }
     }
-    return 'Javite nam';
+    return 'Molimo vas da svoj dolazak potvrdite do 18.8.';
   }
 
   getNoButtonTitle(): string {
@@ -79,5 +89,30 @@ export class PublicInvitationComponent {
 
   getYesButtonTitle(): string {
     return !this.invitation.response ? 'Dolazimo' : 'Ipak dolazimo';
+  }
+
+  private setCountdownTimer() {
+    const countDownDate = new Date('Aug 28, 2021 18:00:00').getTime();
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      this.timerText = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+
+      if (distance < 0) {
+        clearInterval(interval);
+        this.timerText = '';
+      }
+    }, 1000);
+  }
+
+  showMap() {
+    this.isShowMap = true;
   }
 }

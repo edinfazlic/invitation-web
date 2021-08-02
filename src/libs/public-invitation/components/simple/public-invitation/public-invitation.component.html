@@ -1,45 +1,79 @@
-<div class="row justify-content-center align-items-center vh-100">
-  <div class="col-md-8 col-lg-6 col-xxl-4 justify-content-center" style="background-color: aqua">
-    <div class="text-center">
-      {{getIntro()}}
-    </div>
-    <div class="text-center">
-      <h1>{{invitation.parameters}}</h1>
-    </div>
-    <div class="text-center">
-      {{getInvitationText()}}
+<div class="row w-100 vh-100 m-0" style="background-color: rgb(239 245 255);">
+
+  <div class="parallax-container">
+
+    <div class="background-image-container row justify-content-center gx-0">
+      <div class="col-md-8 col-lg-6 col-xxl-4 position-relative p-0">
+        <img class="position-absolute w-100 background-image"
+             src="assets/images/IMG_20210802_1042492.jpg">
+      </div>
     </div>
 
-    <div class="text-center">
-      <textarea rows="3" placeholder="Komentar" maxlength="1000"
-                [(ngModel)]="comment"></textarea>
-    </div>
+    <div class="foreground-container row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xxl-4 vh-100 foreground-content">
+        <!--        <div class="text-center">-->
+        <!--          {{getIntro()}}-->
+        <!--        </div>-->
+        <div class="text-center pb-5 invitee-title">
+          {{invitation.parameters}}
+        </div>
 
-    <div class="text-center">
-      {{getProvideAnswerHint()}}
-      <span *ngIf="invitation.response?.status === responseStatus.YES"
-            class="badge bg-success">ćete moći doći.</span>
-      <span *ngIf="invitation.response?.status === responseStatus.NO"
-            class="badge bg-danger">nećete moći doći.</span>
-    </div>
+        <div class="text-center pb-5 invitation-text">Pozivamo vas da 28.8.2021. budete svjedok naše
+          ljubavi i ispratite nas dok koračamo ka zajedničkom životu. Budite dio našeg svečanog
+          druženja u hotelu Tarčin Forest Resort koje počinje u 18h. Veselimo se vašem dolasku.
+        </div>
 
-    <div class="text-center">
-      <button [ngClass]="{'invisible': !provideAnswerLocked}"
-              class="btn btn-warning rounded-pill text-uppercase m-2"
-              (click)="changeAnswer()">Promijeni odgovor
-      </button>
-    </div>
+        <div class="text-center pb-5 signature-text">Aida & Edin</div>
 
-    <div [ngClass]="{'invisible': provideAnswerLocked}" class="text-center">
-      <button class="btn btn-danger rounded-pill text-uppercase m-2"
-              [ngClass]="{'invisible': invitation.response?.status === responseStatus.NO}"
-              (click)="declineInvitation()">{{getNoButtonTitle()}}
-      </button>
+        <div class="text-center pb-2">
+          {{getProvideAnswerHint()}}
+          <span *ngIf="invitation.response?.status === responseStatus.YES"
+                class="badge bg-success rounded-pill">ćete doći.</span>
+          <span *ngIf="invitation.response?.status === responseStatus.NO"
+                class="badge bg-danger rounded-pill">nećete moći doći.</span>
+        </div>
 
-      <button class="btn btn-success rounded-pill text-uppercase m-2"
-              [ngClass]="{'invisible': invitation.response?.status === responseStatus.YES}"
-              (click)="confirmInvitation()">{{getYesButtonTitle()}}
-      </button>
+        <div class="text-center pb-2"
+             *ngIf="invitation.response?.status === responseStatus.YES">
+          <div>Počinjemo za {{timerText}}</div>
+        </div>
+
+        <div class="text-center">
+          <textarea rows="3" placeholder="Ostavite nam komentar..." maxlength="1000"
+                    class="w-100 comment-input"
+                    [disabled]="provideAnswerLocked"
+                    [(ngModel)]="comment"></textarea>
+        </div>
+
+        <div class="text-center">
+          <button [ngClass]="{'invisible': !provideAnswerLocked}"
+                  class="btn btn-warning m-2"
+                  (click)="changeAnswer()">Promijeni odgovor
+          </button>
+        </div>
+
+        <div [ngClass]="{'invisible': provideAnswerLocked}" class="text-center">
+          <button class="btn btn-danger m-2"
+                  [ngClass]="{'invisible': invitation.response?.status === responseStatus.NO}"
+                  (click)="declineInvitation()">{{getNoButtonTitle()}}
+          </button>
+
+          <button class="btn btn-success m-2"
+                  [ngClass]="{'invisible': invitation.response?.status === responseStatus.YES}"
+                  (click)="confirmInvitation()">{{getYesButtonTitle()}}
+          </button>
+        </div>
+
+        <div class="pt-2 cursor-pointer" (click)="showMap()">
+          <u>Gdje je Tarčin Forest Resort?</u>
+        </div>
+
+        <div *ngIf="isShowMap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2880.238120192025!2d18.102387040802824!3d43.78867175454119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475f4be782f34aad%3A0xc5635d1eec66966d!2sTarcin%20Forest%20Resort%20%26%20Spa%20Sarajevo%20-%20MGallery!5e0!3m2!1sen!2sba!4v1627924658577!5m2!1sen!2sba"
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
     </div>
   </div>
 </div>
