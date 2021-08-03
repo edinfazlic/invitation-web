@@ -1,7 +1,3 @@
-.background-image {
-  z-index: -1;
-}
-
 .parallax-container {
   position: relative;
   width: 100%;
@@ -9,7 +5,7 @@
   overflow-x: hidden;
   overflow-y: scroll;
   perspective: 8px;
-  perspective-origin: 0%;
+  perspective-origin: 0;
   display: flex;
 }
 
@@ -20,10 +16,14 @@
   width: 100%;
   height: 100%;
   transform: translateZ(0px);
+  filter: blur(1px);
+}
+
+.background-image {
+  min-width: 400px;
 }
 
 .foreground-container {
-  margin-top: auto;
   margin-bottom: 50px;
 
   transform-origin: 0;
@@ -33,7 +33,19 @@
 }
 
 .foreground-content {
-  padding: 250px 4rem 0 4rem;
+  padding-top: 250px;
+  padding-bottom: 0;
+}
+
+.foreground-card {
+  position: absolute;
+  z-index: -1;
+  top: 200px;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.4;
+  border-radius: 3px;
 }
 
 .invitee-title {
@@ -50,7 +62,7 @@
 
 .signature-text {
   font-family: 'AcryleScript_PersonalUse';
-  font-size: 5rem;
+  font-size: 4rem;
 }
 
 .comment-input {

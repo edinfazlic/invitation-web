@@ -9,18 +9,14 @@ import {PublicInvitation} from '../../../models/public-invitation.model';
 })
 export class PublicInvitationComponent implements OnInit {
 
+  private readonly countdownDueDate = 'Aug 28, 2021 18:00:00';
+  private readonly responseDueDate = 'Aug 18, 2021 23:59:59';
+
   @Input()
   set invitationModel(invitation: PublicInvitation) {
     this.invitation = {...invitation};
 
-
-    // todo remove
-    // this.invitation.response = {
-    //   status: this.responseStatus.NO,
-    //   comment: '',
-    // };
-
-    this.provideAnswerLocked = !!this.invitation.response;
+    this.provideAnswerSectionHidden = !!this.invitation.response;
     this.comment = this.invitation.response?.comment;
   }
 
@@ -31,7 +27,8 @@ export class PublicInvitationComponent implements OnInit {
   sendResponse: EventEmitter<{ response: InvitationResponse, id: number }> =
     new EventEmitter<{ response: InvitationResponse, id: number }>();
 
-  provideAnswerLocked: boolean;
+  provideAnswerSectionHidden: boolean;
+  provideAnswerLocked = false;
   isShowMap = false;
   timerText: string;
 
@@ -39,6 +36,7 @@ export class PublicInvitationComponent implements OnInit {
 
   ngOnInit() {
     this.setCountdownTimer();
+    this.provideAnswerLocked = new Date().getTime() > new Date(this.responseDueDate).getTime();
   }
 
   getIntro(): string {
@@ -68,8 +66,8 @@ export class PublicInvitationComponent implements OnInit {
     });
   }
 
-  changeAnswer() {
-    this.provideAnswerLocked = false;
+  changeAnswer(): void {
+    this.provideAnswerSectionHidden = false;
   }
 
   getProvideAnswerHint(): string {
@@ -91,8 +89,8 @@ export class PublicInvitationComponent implements OnInit {
     return !this.invitation.response ? 'Dolazimo' : 'Ipak dolazimo';
   }
 
-  private setCountdownTimer() {
-    const countDownDate = new Date('Aug 28, 2021 18:00:00').getTime();
+  private setCountdownTimer(): void {
+    const countDownDate = new Date(this.countdownDueDate).getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -112,7 +110,11 @@ export class PublicInvitationComponent implements OnInit {
     }, 1000);
   }
 
-  showMap() {
+  showMap(): void {
     this.isShowMap = true;
+  }
+
+  showTimer(): boolean {
+    return this.invitation.response?.status === InvitationResponseStatus.YES && !!this.timerText;
   }
 }

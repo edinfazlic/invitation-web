@@ -90,6 +90,6 @@ export class InvitationFormComponent implements OnInit {
   }
 
   generateLink(): string {
-    return `https://pozivnica.netlify.app/#/i/${this.invitation.uuid}`;
+    return `${window.location.origin}/#/i/${this.invitation.uuid}`;
   }
 }
