@@ -10,29 +10,23 @@
     </div>
 
     <div class="foreground-container row justify-content-center">
-      <div
-        class="col-10 col-md-8 col-lg-6 col-xxl-4 gx-0 foreground-content position-relative">
+      <div class="col-10 col-md-8 col-lg-6 col-xxl-4 gx-0 foreground-content position-relative">
         <div class="foreground-card"></div>
-        <!--        <div class="text-center">-->
-        <!--          {{getIntro()}}-->
-        <!--        </div>-->
+
         <div class="text-center pb-5 invitee-title">
           {{invitation.parameters}}
         </div>
 
-        <div class="text-center pb-5 invitation-text">Pozivamo vas da 28.8.2021. budete
-          dio našeg svečanog druženja u hotelu Tarčin Forest Resort koje počinje u 18h.
-          Veselimo se vašem dolasku.
-        </div>
+        <div class="text-center pb-5 invitation-text">{{invitation.templateText}}</div>
 
         <div class="text-center pb-5 signature-text">Aida & Edin</div>
 
         <div class="text-center pb-2">
           {{getProvideAnswerHint()}}
           <span *ngIf="invitation.response?.status === responseStatus.YES"
-                class="badge bg-success rounded-pill">ćete doći.</span>
+                class="badge bg-success rounded-pill">{{getAnswerYesHint()}}</span>
           <span *ngIf="invitation.response?.status === responseStatus.NO"
-                class="badge bg-danger rounded-pill">nećete moći doći.</span>
+                class="badge bg-danger rounded-pill">{{getAnswerNoHint()}}</span>
         </div>
 
         <div *ngIf="showTimer()"

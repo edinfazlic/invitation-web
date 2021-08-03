@@ -39,15 +39,6 @@ export class PublicInvitationComponent implements OnInit {
     this.provideAnswerLocked = new Date().getTime() > new Date(this.responseDueDate).getTime();
   }
 
-  getIntro(): string {
-    return this.invitation.templateText.split('%%')[0];
-  }
-
-  getInvitationText(): string {
-    const sections = this.invitation.templateText.split('%%');
-    return sections.length > 1 ? sections[1] : '';
-  }
-
   confirmInvitation() {
     this.emitSendResponse(InvitationResponseStatus.YES);
   }
@@ -73,20 +64,42 @@ export class PublicInvitationComponent implements OnInit {
   getProvideAnswerHint(): string {
     if (!!this.invitation.response) {
       if (this.invitation.response.status === InvitationResponseStatus.NO) {
-        return 'Javili ste nam da nažalost ';
+        return this.invitation.plural
+          ? 'Javili ste nam da nažalost '
+          : 'Žao nam je što je tvoj odgovor da ';
       } else {
-        return 'Drago nam je što ste javili da ';
+        return this.invitation.plural
+          ? 'Drago nam je što ste javili da '
+          : 'Drago nam je što je tvoj odgovor da ';
       }
     }
-    return 'Molimo vas da svoj dolazak potvrdite do 18.8.';
+    return this.invitation.plural
+      ? 'Molimo vas da svoj dolazak potvrdite do 18.8.'
+      : 'Molimo te da svoj dolazak potvrdiš do 18.8.';
+  }
+
+  getAnswerYesHint(): string {
+    return this.invitation.plural ? 'ćete doći.' : 'ćeš doći.';
+  }
+
+  getAnswerNoHint(): string {
+    return this.invitation.plural ? 'nećete moći doći.' : 'nećeš moći doći.';
   }
 
   getNoButtonTitle(): string {
-    return !this.invitation.response ? 'Ne dolazimo' : 'Ipak ne dolazimo';
+    if (!this.invitation.response) {
+      return this.invitation.plural ? 'Ne dolazimo' : 'Ne dolazim';
+    } else {
+      return this.invitation.plural ? 'Ipak ne dolazimo' : 'Ipak ne dolazim';
+    }
   }
 
   getYesButtonTitle(): string {
-    return !this.invitation.response ? 'Dolazimo' : 'Ipak dolazimo';
+    if (!this.invitation.response) {
+      return this.invitation.plural ? 'Dolazimo' : 'Dolazim';
+    } else {
+      return this.invitation.plural ? 'Ipak dolazimo' : 'Ipak dolazim';
+    }
   }
 
   private setCountdownTimer(): void {

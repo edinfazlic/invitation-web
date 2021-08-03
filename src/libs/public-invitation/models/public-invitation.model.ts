@@ -5,6 +5,7 @@ export interface PublicInvitation {
   uuid: string;
   subject: string;
   parameters: string;
+  plural: boolean;
   templateText: string;
 
   response?: InvitationResponse;
