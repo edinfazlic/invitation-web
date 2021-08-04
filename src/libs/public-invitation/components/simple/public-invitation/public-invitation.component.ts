@@ -133,7 +133,7 @@ export class PublicInvitationComponent implements OnInit {
   private sendStatus(status: InvitationResponseStatus): void {
     this.emitSendResponse({
       status,
-      comment: this.invitation.response.comment,
+      comment: this.invitation.response?.comment,
     });
   }
 
