@@ -20,6 +20,9 @@ export class PublicInvitationComponent implements OnInit {
     this.comment = this.invitation.response?.comment;
   }
 
+  provideAnswerSectionHidden: boolean;
+  provideAnswerClosed: boolean;
+  isCommentVisible: boolean;
   invitation: PublicInvitation;
   comment: string;
 
@@ -27,38 +30,40 @@ export class PublicInvitationComponent implements OnInit {
   sendResponse: EventEmitter<{ response: InvitationResponse, id: number }> =
     new EventEmitter<{ response: InvitationResponse, id: number }>();
 
-  provideAnswerSectionHidden: boolean;
-  provideAnswerLocked = false;
-  isShowMap = false;
   timerText: string;
 
   responseStatus = InvitationResponseStatus;
 
   ngOnInit() {
     this.setCountdownTimer();
-    this.provideAnswerLocked = new Date().getTime() > new Date(this.responseDueDate).getTime();
+    this.provideAnswerClosed = new Date().getTime() > new Date(this.responseDueDate).getTime();
+    this.init();
   }
 
-  confirmInvitation() {
-    this.emitSendResponse(InvitationResponseStatus.YES);
+  private init(): void {
+    this.provideAnswerSectionHidden = !!this.invitation.response;
+    this.isCommentVisible = false;
   }
 
-  declineInvitation() {
-    this.emitSendResponse(InvitationResponseStatus.NO);
-  }
+  private setCountdownTimer(): void {
+    const countDownDate = new Date(this.countdownDueDate).getTime();
 
-  private emitSendResponse(status: InvitationResponseStatus): void {
-    this.sendResponse.emit({
-      response: {
-        status,
-        comment: this.comment,
-      },
-      id: this.invitation.id,
-    });
-  }
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
 
-  changeAnswer(): void {
-    this.provideAnswerSectionHidden = false;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      this.timerText = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+
+      if (distance < 0) {
+        clearInterval(interval);
+        this.timerText = '';
+      }
+    }, 1000);
   }
 
   getProvideAnswerHint(): string {
@@ -86,6 +91,60 @@ export class PublicInvitationComponent implements OnInit {
     return this.invitation.plural ? 'nećete moći doći.' : 'nećeš moći doći.';
   }
 
+  showTimer(): boolean {
+    return this.invitation.response?.status === InvitationResponseStatus.YES && !!this.timerText;
+  }
+
+  isSendCommentQuestionVisible(): boolean {
+    return !!this.invitation.response;
+  }
+
+  showComment(): void {
+    this.isCommentVisible = true;
+  }
+
+  sendComment(): void {
+    this.emitSendResponse({
+      status: this.invitation.response.status,
+      comment: this.comment,
+    });
+  }
+
+  isChangeAnswerQuestionVisible(): boolean {
+    return !this.provideAnswerClosed && !!this.invitation.response;
+  }
+
+  changeAnswer(): void {
+    this.provideAnswerSectionHidden = false;
+  }
+
+  isAnswerSectionVisible(): boolean {
+    return !this.provideAnswerClosed && !this.provideAnswerSectionHidden;
+  }
+
+  declineInvitation() {
+    this.sendStatus(InvitationResponseStatus.NO);
+  }
+
+  confirmInvitation() {
+    this.sendStatus(InvitationResponseStatus.YES);
+  }
+
+  private sendStatus(status: InvitationResponseStatus): void {
+    this.emitSendResponse({
+      status,
+      comment: this.invitation.response.comment,
+    });
+  }
+
+  private emitSendResponse(response: InvitationResponse): void {
+    this.sendResponse.emit({
+      response,
+      id: this.invitation.id,
+    });
+    this.init();
+  }
+
   getNoButtonTitle(): string {
     if (!this.invitation.response) {
       return this.invitation.plural ? 'Ne dolazimo' : 'Ne dolazim';
@@ -102,32 +161,7 @@ export class PublicInvitationComponent implements OnInit {
     }
   }
 
-  private setCountdownTimer(): void {
-    const countDownDate = new Date(this.countdownDueDate).getTime();
-
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = countDownDate - now;
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      this.timerText = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
-
-      if (distance < 0) {
-        clearInterval(interval);
-        this.timerText = '';
-      }
-    }, 1000);
-  }
-
   showMap(): void {
-    this.isShowMap = true;
-  }
-
-  showTimer(): boolean {
-    return this.invitation.response?.status === InvitationResponseStatus.YES && !!this.timerText;
+    window.location.href = 'https://goo.gl/maps/8h1pxqggWKbgsGTC7';
   }
 }

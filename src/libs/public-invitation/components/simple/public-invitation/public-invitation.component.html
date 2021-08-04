@@ -34,43 +34,42 @@
           <div>Počinjemo za {{timerText}}</div>
         </div>
 
-        <div class="text-center">
-          <textarea rows="3" placeholder="Ostavite nam komentar..." maxlength="1000"
-                    class="w-100 comment-input"
-                    [disabled]="provideAnswerSectionHidden"
-                    [(ngModel)]="comment"></textarea>
+        <div *ngIf="isSendCommentQuestionVisible()" class="pt-3 cursor-pointer"
+             (click)="showComment()">
+          Kako ostaviti komentar? <u>Klikni ovdje</u>
         </div>
 
-        <div *ngIf="!provideAnswerLocked" class="text-center">
-          <button [ngClass]="{'invisible': !provideAnswerSectionHidden}"
-                  class="btn btn-warning m-2"
-                  (click)="changeAnswer()">Promijeni odgovor
+        <div *ngIf="isCommentVisible" class="text-center">
+          <textarea rows="3" placeholder="Ostavite nam komentar..." maxlength="1000"
+                    class="w-100 comment-input"
+                    [(ngModel)]="comment"></textarea>
+          <button class="btn btn-primary m-2"
+                  (click)="sendComment()">Pošalji komentar
           </button>
         </div>
 
-        <div *ngIf="!provideAnswerLocked" [ngClass]="{'invisible': provideAnswerSectionHidden}"
-             class="text-center">
+        <div *ngIf="isChangeAnswerQuestionVisible()" class="pt-3 cursor-pointer"
+             (click)="changeAnswer()">
+          Može li se promijenti odgovor? <u>Klikni ovdje</u>
+        </div>
+
+        <div *ngIf="isAnswerSectionVisible()" class="text-center">
           <button class="btn btn-danger m-2"
-                  [ngClass]="{'invisible': invitation.response?.status === responseStatus.NO}"
+                  *ngIf="invitation.response?.status !== responseStatus.NO"
                   (click)="declineInvitation()">{{getNoButtonTitle()}}
           </button>
 
           <button class="btn btn-success m-2"
-                  [ngClass]="{'invisible': invitation.response?.status === responseStatus.YES}"
+                  *ngIf="invitation.response?.status !== responseStatus.YES"
                   (click)="confirmInvitation()">{{getYesButtonTitle()}}
           </button>
         </div>
 
         <div class="pt-3 cursor-pointer" (click)="showMap()">
-          <u>Gdje je Tarčin Forest Resort?</u>
+          Gdje je Tarčin Forest Resort? <u>Klikni ovdje</u>
         </div>
       </div>
 
-      <div *ngIf="isShowMap" class="p-0">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2880.238120192025!2d18.102387040802824!3d43.78867175454119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475f4be782f34aad%3A0xc5635d1eec66966d!2sTarcin%20Forest%20Resort%20%26%20Spa%20Sarajevo%20-%20MGallery!5e0!3m2!1sen!2sba!4v1627924658577!5m2!1sen!2sba"
-          width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-      </div>
     </div>
   </div>
 </div>
