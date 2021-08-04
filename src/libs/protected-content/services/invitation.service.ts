@@ -33,6 +33,10 @@ export class InvitationService {
     return this.http.post<void>(`${this.environment.backend}/invitation`, formValue);
   }
 
+  deleteInvitation(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.environment.backend}/invitation/${id}`);
+  }
+
 
   getInvitationTemplateList(): Observable<InvitationTemplate[]> {
     return this.http.get<InvitationTemplate[]>(`${this.environment.backend}/invitation-template`);

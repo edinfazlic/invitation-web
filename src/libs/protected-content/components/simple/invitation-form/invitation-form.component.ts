@@ -50,6 +50,9 @@ export class InvitationFormComponent implements OnInit {
   cancelForm: EventEmitter<void> = new EventEmitter<void>();
 
   @Output()
+  deleteInvitation: EventEmitter<number> = new EventEmitter<number>();
+
+  @Output()
   templateSelected: EventEmitter<InvitationTemplate> = new EventEmitter<InvitationTemplate>();
 
   form: FormGroup;
@@ -80,8 +83,12 @@ export class InvitationFormComponent implements OnInit {
     }
   }
 
-  cancelUpdate() {
+  cancelAction(): void {
     this.cancelForm.emit();
+  }
+
+  deleteAction(): void {
+    this.deleteInvitation.emit(this.invitation.id);
   }
 
   selectTemplate(template: InvitationTemplate): void {

@@ -32,3 +32,11 @@ export const createInvitationAction = createAction(
 );
 
 export const createInvitationSuccessAction = createAction('[Invitation] Submit for create success');
+
+
+export const deleteInvitationAction = createAction(
+  '[Invitation] Submit for delete',
+  props<{ id: number }>()
+);
+
+export const deleteInvitationSuccessAction = createAction('[Invitation] Submit for delete success');

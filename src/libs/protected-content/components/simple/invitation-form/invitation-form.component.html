@@ -47,7 +47,7 @@
     <div class="col-5">
       <button
         class="btn btn-secondary rounded-pill text-uppercase w-100"
-        (click)="cancelUpdate()"
+        (click)="cancelAction()"
         type="button">Odustani
       </button>
     </div>
@@ -55,6 +55,16 @@
     <div class="col-5">
       <button class="btn btn-primary rounded-pill text-uppercase w-100"
               type="submit">Snimi
+      </button>
+    </div>
+  </div>
+
+  <div class="row justify-content-evenly pt-5">
+    <div class="col-5" *ngIf="invitation.id !== null">
+      <button
+        class="btn btn-danger rounded-pill text-uppercase w-100"
+        (click)="deleteAction()"
+        type="button">Obriši
       </button>
     </div>
   </div>

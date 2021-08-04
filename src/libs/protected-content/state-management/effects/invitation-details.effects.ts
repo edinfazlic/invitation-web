@@ -7,6 +7,8 @@ import {InvitationService} from '../../services/invitation.service';
 import {
   createInvitationAction,
   createInvitationSuccessAction,
+  deleteInvitationAction,
+  deleteInvitationSuccessAction,
   getInvitationDetailsAction,
   getInvitationDetailsSuccessAction,
   navigateToInvitationCreate,
@@ -100,6 +102,30 @@ export class InvitationDetailsEffects {
   @Effect()
   createInvitationSuccess$ = this.actions$.pipe(
     ofType(createInvitationSuccessAction),
+    switchMap(() => {
+      return [
+        navigateToInvitationList()
+      ];
+    })
+  );
+
+  @Effect()
+  deleteInvitation$ = this.actions$.pipe(
+    ofType(deleteInvitationAction),
+    switchMap(({id}) => {
+      return this.invitationService.deleteInvitation(id).pipe(
+        switchMap(() => {
+          return [
+            deleteInvitationSuccessAction()
+          ];
+        })
+      );
+    })
+  );
+
+  @Effect()
+  deleteInvitationSuccess$ = this.actions$.pipe(
+    ofType(deleteInvitationSuccessAction),
     switchMap(() => {
       return [
         navigateToInvitationList()

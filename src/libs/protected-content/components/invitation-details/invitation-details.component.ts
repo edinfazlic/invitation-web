@@ -43,7 +43,11 @@ export class InvitationDetailsComponent {
     }));
   }
 
-  cancelUpdate() {
+  cancelUpdate(): void {
+    this.store.dispatch(navigateToInvitationList());
+  }
+
+  deleteInvitation(invitationId: number): void {
     this.store.dispatch(navigateToInvitationList());
   }
 
