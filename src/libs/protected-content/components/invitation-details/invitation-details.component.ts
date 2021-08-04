@@ -2,13 +2,13 @@ import {Component, Inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
+import {InvitationResponseStatus} from '../../../core/models';
 import {ROUTE_NAMES, RouteNames} from '../../../core/routes';
 import {InvitationRequest} from '../../models/dtos/invitation-request.model';
 import {InvitationLogType} from '../../models/enums/invitation-log-type.model';
-import {InvitationResponseStatus} from '../../../core/models';
 import {InvitationDetails} from '../../models/invitation-details.model';
 import {InvitationTemplate} from '../../models/invitation-template.model';
-import {updateInvitationAction} from '../../state-management/actions/invitation-details.actions';
+import {deleteInvitationAction, updateInvitationAction} from '../../state-management/actions/invitation-details.actions';
 import {navigateToInvitationList} from '../../state-management/actions/invitation-list.actions';
 import {getInvitationDetails, getInvitationTemplateList} from '../../state-management/invitation.selectors';
 
@@ -48,7 +48,7 @@ export class InvitationDetailsComponent {
   }
 
   deleteInvitation(invitationId: number): void {
-    this.store.dispatch(navigateToInvitationList());
+    this.store.dispatch(deleteInvitationAction({id: invitationId}));
   }
 
   formatDate(stringDate: string): string {

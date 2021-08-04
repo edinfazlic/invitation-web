@@ -1,5 +1,4 @@
 import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {PublicInvitationContainerComponent} from './components/public-invitation-container/public-invitation-container.component';
@@ -16,7 +15,6 @@ import {PublicInvitationStateModule} from './state-management/public-invitation-
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     FormsModule,
 
     PublicInvitationRoutingModule,

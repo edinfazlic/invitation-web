@@ -1,4 +1,4 @@
-import {HttpBackend, HttpClient} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {APP_ENVIRONMENT, InvitationEnvironment} from '../../core';
@@ -8,13 +8,10 @@ import {SignInForm} from '../models/interfaces/sign-in-form.interface';
 @Injectable()
 export class SignInService {
 
-  private http: HttpClient;
-
   constructor(
-    handler: HttpBackend,
+    private http: HttpClient,
     @Inject(APP_ENVIRONMENT) private environment: InvitationEnvironment
   ) {
-    this.http = new HttpClient(handler);
   }
 
   logIn(signInForm: SignInForm): Observable<AuthResponse> {

@@ -1,11 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {InvitationResponse, InvitationResponseStatus} from '../../../../core/models';
 import {PublicInvitation} from '../../../models/public-invitation.model';
+import {TimeFormatterUtil} from '../../../utils/time-formatter.util';
+import {SlideInOutAnimation} from './in-out-animations';
 
 @Component({
   selector: 'app-public-invitation',
   templateUrl: './public-invitation.component.html',
-  styleUrls: ['./public-invitation.component.css']
+  styleUrls: ['./public-invitation.component.css'],
+  animations: [SlideInOutAnimation]
 })
 export class PublicInvitationComponent implements OnInit {
 
@@ -48,16 +51,16 @@ export class PublicInvitationComponent implements OnInit {
   private setCountdownTimer(): void {
     const countDownDate = new Date(this.countdownDueDate).getTime();
 
+    const initialDistance = countDownDate - new Date().getTime();
+    if (initialDistance < 0) {
+      return;
+    }
+    this.timerText = TimeFormatterUtil.getFormattedCountdown(initialDistance);
+
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = countDownDate - now;
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      this.timerText = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+      this.timerText = TimeFormatterUtil.getFormattedCountdown(distance);
 
       if (distance < 0) {
         clearInterval(interval);
@@ -100,7 +103,7 @@ export class PublicInvitationComponent implements OnInit {
   }
 
   showComment(): void {
-    this.isCommentVisible = true;
+    this.isCommentVisible = !this.isCommentVisible;
   }
 
   sendComment(): void {
@@ -115,7 +118,7 @@ export class PublicInvitationComponent implements OnInit {
   }
 
   changeAnswer(): void {
-    this.provideAnswerSectionHidden = false;
+    this.provideAnswerSectionHidden = !this.provideAnswerSectionHidden;
   }
 
   isAnswerSectionVisible(): boolean {
