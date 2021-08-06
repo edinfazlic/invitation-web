@@ -21,6 +21,9 @@ export class PublicInvitationComponent implements OnInit {
 
     this.provideAnswerSectionHidden = !!this.invitation.response;
     this.comment = this.invitation.response?.comment;
+    if (this.invitation.templateText.indexOf('invit') > 0) {
+      this.language = 'en';
+    }
   }
 
   provideAnswerSectionHidden: boolean;
@@ -28,6 +31,7 @@ export class PublicInvitationComponent implements OnInit {
   isCommentVisible: boolean;
   invitation: PublicInvitation;
   comment: string;
+  language = 'ba';
 
   @Output()
   sendResponse: EventEmitter<{ response: InvitationResponse, id: number }> =
@@ -72,26 +76,34 @@ export class PublicInvitationComponent implements OnInit {
   getProvideAnswerHint(): string {
     if (!!this.invitation.response) {
       if (this.invitation.response.status === InvitationResponseStatus.NO) {
-        return this.invitation.plural
-          ? 'Javili ste nam da nažalost '
-          : 'Žao nam je što je tvoj odgovor da ';
+        return this.language === 'en'
+          ? 'You have informed us that unfortunately '
+          : (this.invitation.plural ? 'Javili ste nam da nažalost ' : 'Žao nam je što je tvoj odgovor da ');
       } else {
-        return this.invitation.plural
-          ? 'Drago nam je što ste javili da '
-          : 'Drago nam je što je tvoj odgovor da ';
+        return this.language === 'en'
+          ? 'We are happy your answer is that '
+          : (this.invitation.plural
+            ? 'Drago nam je što ste javili da '
+            : 'Drago nam je što je tvoj odgovor da ');
       }
     }
-    return this.invitation.plural
+    return this.language === 'en'
+    ? 'RSVP by 18.8.'
+      : (this.invitation.plural
       ? 'Molimo vas da svoj dolazak potvrdite do 18.8.'
-      : 'Molimo te da svoj dolazak potvrdiš do 18.8.';
+      : 'Molimo te da svoj dolazak potvrdiš do 18.8.');
   }
 
   getAnswerYesHint(): string {
-    return this.invitation.plural ? 'ćete doći.' : 'ćeš doći.';
+    return this.language === 'en'
+      ? 'you will come.'
+      : (this.invitation.plural ? 'ćete doći.' : 'ćeš doći.');
   }
 
   getAnswerNoHint(): string {
-    return this.invitation.plural ? 'nećete moći doći.' : 'nećeš moći doći.';
+    return this.language === 'en'
+      ? 'you will not come.'
+      : (this.invitation.plural ? 'nećete moći doći.' : 'nećeš moći doći.');
   }
 
   showTimer(): boolean {
@@ -149,6 +161,9 @@ export class PublicInvitationComponent implements OnInit {
   }
 
   getNoButtonTitle(): string {
+    if (this.language === 'en') {
+      return 'Not coming';
+    }
     if (!this.invitation.response) {
       return this.invitation.plural ? 'Ne dolazimo' : 'Ne dolazim';
     } else {
@@ -157,6 +172,9 @@ export class PublicInvitationComponent implements OnInit {
   }
 
   getYesButtonTitle(): string {
+    if (this.language === 'en') {
+      return 'Coming';
+    }
     if (!this.invitation.response) {
       return this.invitation.plural ? 'Dolazimo' : 'Dolazim';
     } else {
@@ -166,5 +184,47 @@ export class PublicInvitationComponent implements OnInit {
 
   showMap(): void {
     window.location.href = 'https://goo.gl/maps/8h1pxqggWKbgsGTC7';
+  }
+
+  getStartingInLabel(): string {
+    return this.language === 'en'
+      ? 'Starting in'
+      : 'Počinjemo za';
+  }
+
+  getHowToLeaveCommentLabel(): string {
+    return this.language === 'en'
+      ? 'How to leave a comment?'
+      : 'Kako ostaviti komentar?';
+  }
+
+  getLeaveACommentLabel(): string {
+    return this.language === 'en'
+      ? 'Leave a comment...'
+      : 'Ostavite nam komentar...';
+  }
+
+  getSendCommentLabel(): string {
+    return this.language === 'en'
+      ? 'Send comment'
+      : 'Pošalji komentar';
+  }
+
+  getChangeAnswerQuestionLabel(): string {
+    return this.language === 'en'
+      ? 'Is it possible to change the answer?'
+      : 'Može li se promijenti odgovor?';
+  }
+
+  getWhereIsLocationLabel(): string {
+    return this.language === 'en'
+      ? 'Where is the Tarčin Forest Resort?'
+      : 'Gdje je Tarčin Forest Resort?';
+  }
+
+  getClickHereLabel(): string {
+    return this.language === 'en'
+      ? 'Click here'
+      : 'Klikni ovdje';
   }
 }

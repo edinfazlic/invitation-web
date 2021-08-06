@@ -31,26 +31,27 @@
 
         <div *ngIf="showTimer()"
              class="text-center pb-4">
-          <div>⭐ Počinjemo za {{timerText}} ⭐</div>
+          <div>⭐ {{getStartingInLabel()}} {{timerText}} ⭐</div>
         </div>
 
         <div *ngIf="isSendCommentQuestionVisible()" class="mt-3 cursor-pointer"
              (click)="showComment()">
-          Kako ostaviti komentar? 💬 <u>Klikni ovdje</u>
+          {{getHowToLeaveCommentLabel()}} 💬 <u>{{getClickHereLabel()}}</u>
         </div>
 
         <div *ngIf="isCommentVisible" [@slideInOut] class="text-center comment-container">
-          <textarea rows="3" placeholder="Ostavite nam komentar..." maxlength="1000"
+          <textarea rows="3" [placeholder]="getLeaveACommentLabel()" maxlength="1000"
                     class="w-100 comment-input"
                     [(ngModel)]="comment"></textarea>
           <button class="btn btn-primary m-2"
-                  (click)="sendComment()">Pošalji komentar
+                  (click)="sendComment()">{{getSendCommentLabel()}}
           </button>
         </div>
 
         <div *ngIf="isChangeAnswerQuestionVisible()" class="mt-3 cursor-pointer"
              (click)="changeAnswer()">
-          Može li se promijenti odgovor? <span style="font-size: 0.75rem">🔴🟢 </span><u>Klikni ovdje</u>
+          {{getChangeAnswerQuestionLabel()}} <span
+          style="font-size: 0.75rem">🔴🟢 </span><u>{{getClickHereLabel()}}</u>
         </div>
 
         <div *ngIf="isAnswerSectionVisible()" [@slideInOut] class="text-center">
@@ -66,7 +67,7 @@
         </div>
 
         <div class="mt-3 cursor-pointer" (click)="showMap()">
-          Gdje je Tarčin Forest Resort? 🌍 <u>Klikni ovdje</u>
+          {{getWhereIsLocationLabel()}} 🌍 <u>{{getClickHereLabel()}}</u>
         </div>
       </div>
 
