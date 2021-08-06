@@ -1,0 +1,11 @@
+.table-container {
+  overflow: auto;
+  height: calc(100vh - 200px);
+}
+
+.table-container thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #eee;
+}

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-protected-content-wrapper',
   templateUrl: './protected-content-wrapper.component.html',
   styleUrls: ['./protected-content-wrapper.component.css']
 })

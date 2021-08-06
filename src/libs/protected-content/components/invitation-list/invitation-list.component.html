@@ -1,35 +1,52 @@
-<button class="btn btn-primary rounded-pill text-uppercase m-2"
-        (click)="createInvitation()">Nova pozivnica
-</button>
+<div class="row">
+  <div class="col">
+    <button class="btn btn-primary rounded-pill text-uppercase m-2"
+            (click)="createInvitation()">Nova pozivnica
+    </button>
+  </div>
 
-<table class="table table-hover">
-  <thead>
-  <tr>
-    <th scope="col">Zvanica</th>
-    <th scope="col">Odgovor</th>
-    <th scope="col">Broj gostiju</th>
-    <th scope="col">Broj djece</th>
-    <th scope="col">Zabilješka</th>
-    <th scope="col" class="table-info">Komentar zvanice</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let invitation of (invitations$ | async)"
-      class="cursor-pointer"
-      (click)="openInvitation(invitation.invitationId)">
-    <th scope="row">
-      <span class="fw-bolder">{{invitation.subject}}</span>
-    </th>
-    <th [ngClass]="{
+  <div class="col-6">
+    <div>
+      <span class="badge bg-primary rounded-pill">Total - {{totalPeople}}/{{totalChildren}}</span>
+      <span class="pl-2 badge bg-info text-dark rounded-pill">Bez - {{missingAnswerPeople}}/{{missingAnswerChildren}}</span>
+    </div>
+    <div>
+      <span class="badge bg-success rounded-pill">Da - {{yesAnswerPeople}}/{{yesAnswerChildren}}</span>
+      <span class="pl-2 badge bg-danger rounded-pill">Ne - {{noAnswerPeople}}/{{noAnswerChildren}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">Zvanica</th>
+      <th scope="col">Odgovor</th>
+      <th scope="col">Broj gostiju</th>
+      <th scope="col">Broj djece</th>
+      <th scope="col">Zabilješka</th>
+      <th scope="col" class="table-info">Komentar zvanice</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let invitation of (invitations$ | async)"
+        class="cursor-pointer"
+        (click)="openInvitation(invitation.invitationId)">
+      <th scope="row">
+        <span class="fw-bolder">{{invitation.subject}}</span>
+      </th>
+      <th [ngClass]="{
     'table-success': invitation.responseStatus === responseStatus.YES,
     'table-warning': invitation.responseStatus === responseStatus.MAYBE,
     'table-danger': invitation.responseStatus === responseStatus.NO,
     'table-info': !invitation.responseStatus
     }">{{getResponseStatus(invitation.responseStatus)}}</th>
-    <th>{{invitation.peopleAmount}}</th>
-    <th>{{invitation.childrenAmount}}</th>
-    <th>{{invitation.note}}</th>
-    <th class="table-info cursor-pointer">{{invitation.comment}}</th>
-  </tr>
-  </tbody>
-</table>
+      <th>{{invitation.peopleAmount}}</th>
+      <th>{{invitation.childrenAmount}}</th>
+      <th>{{invitation.note}}</th>
+      <th class="table-info cursor-pointer">{{invitation.comment}}</th>
+    </tr>
+    </tbody>
+  </table>
+</div>
