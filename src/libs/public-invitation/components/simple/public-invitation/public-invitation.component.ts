@@ -134,7 +134,7 @@ export class PublicInvitationComponent implements OnInit {
   }
 
   isAnswerSectionVisible(): boolean {
-    return !this.provideAnswerClosed && !this.provideAnswerSectionHidden;
+    return !this.provideAnswerSectionHidden;
   }
 
   declineInvitation() {
