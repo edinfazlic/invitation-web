@@ -183,7 +183,7 @@ export class PublicInvitationComponent implements OnInit {
   }
 
   showMap(): void {
-    window.location.href = 'https://goo.gl/maps/8h1pxqggWKbgsGTC7';
+    window.location.href = 'https://goo.gl/maps/x3tLPAiXS7p2Nfq99';
   }
 
   getStartingInLabel(): string {
@@ -218,8 +218,8 @@ export class PublicInvitationComponent implements OnInit {
 
   getWhereIsLocationLabel(): string {
     return this.language === 'en'
-      ? 'Where is the Tarčin Forest Resort?'
-      : 'Gdje je Tarčin Forest Resort?';
+      ? 'Where is the Malak Regency Hotel?'
+      : 'Gdje je Malak Regency Hotel?';
   }
 
   getClickHereLabel(): string {
