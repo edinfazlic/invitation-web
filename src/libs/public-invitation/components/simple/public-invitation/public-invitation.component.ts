@@ -90,8 +90,8 @@ export class PublicInvitationComponent implements OnInit {
     return this.language === 'en'
     ? 'RSVP by 18.8.'
       : (this.invitation.plural
-      ? 'Molimo vas da svoj dolazak potvrdite do 18.8.'
-      : 'Molimo te da svoj dolazak potvrdiš do 18.8.');
+      ? 'Molimo vas da svoj dolazak potvrdite što prije.'
+      : 'Molimo te da svoj dolazak potvrdiš što prije.');
   }
 
   getAnswerYesHint(): string {
